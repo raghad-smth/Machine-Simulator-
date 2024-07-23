@@ -1,30 +1,32 @@
-// Showing how the program works
-
-#include "Simulat.h"
-
-
+#include "Memory.h"
+#include "Cpu.h"
+#include "Instructions.h"
+#include "Screen.h"
+#include <iostream>
 
 int main() {
-    // First thing you creat Memory object to load the program from the file into the RAM
+    // First, create a Memory object to load the program from the file into the RAM
     Memory m;
     m.loadProgram("programm.txt");
 
-    // Creat a Cpu object to implement the fetching step from the RAM
+    // Create a Cpu object to implement the fetching step from the RAM
     Cpu cc;
+
     // Pass the cpu object for decoding in the instruction class
-    Instrections i(cc);
-    // Now we keep fetching, decoding , executing till which get called inside "execute" till the program terminate
-    i.execute(m,cc);
-    // Finally creat a screen object and print the PC,IR, Registers and Ram
-    screen r;
-    cout << "---------------------------------------" << '\n';
+    Instructions i(cc);
+
+    // Now we keep fetching, decoding, executing until the program terminates
+    i.execute(m, cc);
+
+    // Finally, create a Screen object and print the PC, IR, Registers, and RAM
+    Screen r;
+    std::cout << "---------------------------------------" << '\n';
     r.printPC(i);
     r.printIr(i);
-    cout << "---------------------------------------" << '\n';
+    std::cout << "---------------------------------------" << '\n';
     r.printRegs(cc);
-    cout << "---------------------------------------" << '\n';
+    std::cout << "---------------------------------------" << '\n';
     r.printRam(m);
-
 
     return 0;
 }
